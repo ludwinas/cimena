@@ -50,9 +50,7 @@
   :ragtime
   {:migrations ragtime.sql.files/migrations
    :database
-   "jdbc:postgresql://localhost/cimena?user=db_user_name_here&password=db_user_password_here"}
-  
-  
+   "jdbc:postgresql://localhost/cimena_db?user=cimena&password=cimena_password"}
   
   
   :profiles
