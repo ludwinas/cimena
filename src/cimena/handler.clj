@@ -1,6 +1,7 @@
 (ns cimena.handler
   (:require [compojure.core :refer [defroutes routes wrap-routes]]
             [cimena.routes.home :refer [home-routes]]
+            [cimena.routes.movie-tag :refer [movie-tag-routes]]
             [cimena.config :as config]
             [cimena.middleware :as middleware]
             [cimena.session :as session]
@@ -68,9 +69,12 @@
   (stop-nrepl)
   (timbre/info "shutdown complete!"))
 
+(defroutes app-routes
+  home-routes
+  movie-tag-routes)
+
 (def app
   (-> (routes
-        
-        (wrap-routes home-routes middleware/wrap-csrf)
+        (wrap-routes app-routes middleware/wrap-csrf)
         base-routes)
       middleware/wrap-base))

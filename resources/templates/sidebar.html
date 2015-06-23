@@ -1,0 +1,11 @@
+<div id="sidebar" class="column col-sm-2">
+    <ul class="nav nav-stacked nav-pills">
+        <li {% ifequal sidebar-info.active "home" %} class="active" {% endifequal %}><a href="/"><span class="glyphicon glyphicon-film"></span> Movies to watch <span class="badge">{{sidebar-info.movies-to-watch}}</span></a> </li>
+        <li class="nav-divider"></li>
+        {% for tag in sidebar-info.tags %}
+        <li><a href="/movies-by-tag/{{tag.id}}"><span class="glyphicon glyphicon-tag"></span> {{tag.label}} <span class="badge">{{tag.count}}</span></a></li>
+        {% endfor %}
+        <li class="nav-divider"></li>
+        <li {% ifequal sidebar-info.active "watched" %} class="active" {% endifequal %} ><a href="/watched"><span class="glyphicon glyphicon-eye-open"></span> Watched <span class="badge">{{sidebar-info.movies-watched}}</span></a></a></li>
+    </ul>
+</div>
