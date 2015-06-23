@@ -1,0 +1,4 @@
+---
+  dbname: cimena_db
+  dbuser: cimena
+  dbpassword: cimena_password

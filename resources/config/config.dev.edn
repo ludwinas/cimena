@@ -1,0 +1,4 @@
+{:database {:hostname "localhost"
+            :dbname "cimena_db"
+            :user "cimena"
+            :password "cimena_password"}}
