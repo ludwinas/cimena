@@ -1,6 +1,7 @@
 (ns cimena.middleware
   (:require [cimena.session :as session]
             [cimena.layout :refer [*servlet-context*]]
+            [cimena.config :as config]
             [taoensso.timbre :as timbre]
             [environ.core :refer [env]]
             [clojure.java.io :as io]
@@ -18,6 +19,7 @@
             [buddy.auth.accessrules :refer [restrict]]
             [buddy.auth :refer [authenticated?]]
             [cimena.layout :refer [*identity*]]
+            [cimena.db.core :refer [*db-spec* init-db-spec]]
             ))
 
 (defn wrap-servlet-context [handler]
@@ -68,6 +70,11 @@
     (binding [*identity* (or (get-in request [:session :identity]) nil)]
       (handler request))))
 
+(defn wrap-db-spec [handler]
+  (fn [request]
+    (binding [*db-spec* (init-db-spec (:database (config/get-config)))]
+      (handler request))))
+
 (defn wrap-auth [handler]
   (-> handler
       wrap-identity
@@ -76,6 +83,7 @@
 (defn wrap-base [handler]
   (-> handler
       wrap-dev
+      wrap-db-spec
       wrap-auth
       (wrap-idle-session-timeout
         {:timeout (* 60 30)
