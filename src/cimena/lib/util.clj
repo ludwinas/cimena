@@ -1,4 +1,5 @@
-(ns cimena.lib.util)
+(ns cimena.lib.util
+  (:require [clojure.data :as data]))
 
 (defn int-or-nil [x]
   (if (integer? x)
@@ -21,5 +22,5 @@
   "expects two list of integers, normalizes to int before comparing"
   (let [first-set (set (map int-or-nil coll1))
         second-set (set (map int-or-nil coll2))]
-    (clojure.data/diff first-set second-set)))
+    (data/diff first-set second-set)))
 
